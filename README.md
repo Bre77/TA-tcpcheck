@@ -11,3 +11,11 @@ Create an inputs.conf that includes:
 **concurrency** = How many sockets to try open at once
 **timeout** = How long to wait for each socket to open
 **interval** = How often to check all the targets
+
+For example, the defaults are:
+`
+file = default/targets.csv
+concurrency = 50
+timeout = 2
+interval = 300
+`
