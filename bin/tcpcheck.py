@@ -94,11 +94,11 @@ class Input(Script):
         except Exception as e:
             ew.log(EventWriter.ERROR,f"TA-tcpcheck address=\"{address}:{port}\" asset=\"{asset}\" error=\"{e.__class__.__name__}\" message=\"{e}\"")
             error = -2
-        if data:
-            ew.write_event(Event(
-                data=f"{asset}|{error}",
-                source=f"{address}:{port}",
-            ))
+        
+        ew.write_event(Event(
+            data=f"{asset}|{error}",
+            source=f"{address}:{port}",
+        ))
 
 if __name__ == '__main__':
     exitcode = Input().run(sys.argv)
