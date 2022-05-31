@@ -14,8 +14,8 @@ class Input(Script):
 
     def get_scheme(self):
 
-        scheme = Scheme("ICMP")
-        scheme.description = ("A high performance ICMP input")
+        scheme = Scheme("tcpcheck")
+        scheme.description = ("A high performance TCP Port Check input")
         scheme.use_external_validation = False
         scheme.streaming_mode_xml = True
         scheme.use_single_instance = False
@@ -84,16 +84,15 @@ class Input(Script):
         data = None
         try:
             with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as sock:
-                result = (sock.connect_ex((address, port)) == 0)[0,1]:
-            source = f"address:port"
-            data = f"{asset}:{result}:{','.join(format(r, '.3f') for r in result.rtts)}"
-        except ICMPLibError as e:
-            source = e.__class__.__name__
-            ew.log(EventWriter.ERROR,f"TA-icmp address=\"{address}\" asset=\"{asset}\" error=\"{e.__class__.__name__}\" message=\"{e}\"")
-            if(sourcetype != "icmp:metric"):
-                data = f"{asset}:0/0"
+                sock.settimeout(timeout)
+                result = (sock.connect_ex((address, port)) == 0)["0","1"]:
+            source = f"{address}:{port}"
+            data = f"{asset}|{result}}"
+        except OSError as e:
+            ew.log(EventWriter.ERROR,f"TA-tcpcheck address=\"{address}:{port}\" asset=\"{asset}\" error=\"{e.__class__.__name__}\" message=\"{e}\"")
+            data = f"{asset}|-1|{e.__class__.__name__}"
         except Exception as e:
-            ew.log(EventWriter.ERROR,f"TA-icmp address=\"{address}\" asset=\"{asset}\" error=\"{e.__class__.__name__}\" message=\"{e}\"")
+            ew.log(EventWriter.ERROR,f"TA-tcpcheck address=\"{address}:{port}\" asset=\"{asset}\" error=\"{e.__class__.__name__}\" message=\"{e}\"")
         
         if data:
             ew.write_event(Event(
