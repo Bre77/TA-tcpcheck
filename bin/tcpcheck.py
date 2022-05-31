@@ -4,6 +4,7 @@ import json
 import csv
 import time
 import asyncio
+import socket
 from contextlib import closing
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
