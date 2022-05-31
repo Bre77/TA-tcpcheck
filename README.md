@@ -13,9 +13,9 @@ Create an inputs.conf that includes:
 **interval** = How often to check all the targets
 
 For example, the defaults are:
-`
+```
 file = default/targets.csv
 concurrency = 50
 timeout = 2
 interval = 300
-`
+```
