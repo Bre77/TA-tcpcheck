@@ -7,12 +7,10 @@ import asyncio
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
 from splunklib.modularinput import *
-from icmplib.ping import async_ping
-from icmplib import ICMPLibError
 
 class Input(Script):
     MASK = "<encrypted>"
-    APP = "TA-icmp"
+    APP = "TA-tcpcheck"
 
     def get_scheme(self):
 
