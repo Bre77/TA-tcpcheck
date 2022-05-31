@@ -59,7 +59,7 @@ class Input(Script):
             reader = csv.DictReader(csvfile)
             for target in reader:
                 if target.get('enabled') == "1":
-                    targets.append([target['target'],target['port'],target['asset']])
+                    targets.append([target['target'],int(target['port']),target['asset']])
 
         ew.log(EventWriter.INFO,f"Connecting to {len(targets)} targets with a concurrency of {CONCURRENCY} and timeout of {TIMEOUT}")
         start = time.perf_counter()
