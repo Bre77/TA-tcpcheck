@@ -1,0 +1,8 @@
+target,asset,enabled
+1.1.1.1,cloudflaredns,1
+1.0.0.1,cloudflaredns,1
+8.8.8.8,googledns,1
+8.8.4.4,googledns,1
+google.com,google.com,1
+localhost,disabled,0
+10.10.10.10,bad,1
