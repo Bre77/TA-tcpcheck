@@ -59,19 +59,19 @@ class Input(Script):
                 if target.get('enabled') == "1":
                     targets.append([target['target'],target['port'],target['asset']])
 
-        ew.log(EventWriter.INFO,f"Pinging {len(targets)} targets {COUNT} times each with a concurrency of {CONCURRENCY} and timeout of {TIMEOUT}")
+        ew.log(EventWriter.INFO,f"Connecting to {len(targets)} targets with a concurrency of {CONCURRENCY} and timeout of {TIMEOUT}")
         start = time.perf_counter()
 
-        asyncio.run(self.splunk_multiping(targets, COUNT,TIMEOUT,CONCURRENCY,ew, input_items['sourcetype'])) #results = multiping(targets,count=COUNT,timeout=TIMEOUT,concurrent_tasks=CONCURRENCY,privileged=False)
+        asyncio.run(self.tcp_multi(targets, TIMEOUT, CONCURRENCY, ew, input_items['sourcetype']))
         
         stop = time.perf_counter()
         ew.log(EventWriter.INFO,f"Completed in {format(stop-start,'.3f')}s")
 
-    async def splunk_multiping(self, targets, count, timeout, concurrent_tasks, ew, sourcetype):
+    async def tcp_multi(self, targets, timeout, concurrent_tasks, ew, sourcetype):
         loop = asyncio.get_running_loop()
         tasks_pending = set()
 
-        for [address,asset] in targets:
+        for [address,port,asset] in targets:
             if len(tasks_pending) >= concurrent_tasks:
                 _, tasks_pending = await asyncio.wait(tasks_pending,return_when=asyncio.FIRST_COMPLETED)
 
