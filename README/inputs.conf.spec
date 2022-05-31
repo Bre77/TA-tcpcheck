@@ -1,5 +1,4 @@
-[icmp://<name>]
+[tcpcheck://<name>]
 file=<string>
 concurrency=<number>
-count=<number>
 timeout=<number>
