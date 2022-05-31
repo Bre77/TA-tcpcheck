@@ -85,19 +85,17 @@ class Input(Script):
         try:
             with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as sock:
                 sock.settimeout(timeout)
-                result = (sock.connect_ex((address, port)) == 0)["0","1"]:
-            source = f"{address}:{port}"
-            data = f"{asset}|{result}}"
+                error = sock.connect_ex((address, port))
         except OSError as e:
             ew.log(EventWriter.ERROR,f"TA-tcpcheck address=\"{address}:{port}\" asset=\"{asset}\" error=\"{e.__class__.__name__}\" message=\"{e}\"")
-            data = f"{asset}|-1|{e.__class__.__name__}"
+            error = -1
         except Exception as e:
             ew.log(EventWriter.ERROR,f"TA-tcpcheck address=\"{address}:{port}\" asset=\"{asset}\" error=\"{e.__class__.__name__}\" message=\"{e}\"")
-        
+            error = -2
         if data:
             ew.write_event(Event(
-                data=data,
-                source=source,
+                data=f"{asset}|{error}",
+                source=f"{address}:{port}",
             ))
 
 if __name__ == '__main__':
