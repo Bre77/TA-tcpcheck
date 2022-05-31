@@ -14,7 +14,7 @@ class Input(Script):
 
     def get_scheme(self):
 
-        scheme = Scheme("tcpcheck")
+        scheme = Scheme("TCP Port Check")
         scheme.description = ("A high performance TCP Port Check input")
         scheme.use_external_validation = False
         scheme.streaming_mode_xml = True
