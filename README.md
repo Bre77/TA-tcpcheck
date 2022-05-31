@@ -23,7 +23,7 @@ interval = 300
 ```
 
 # Targets CSV file
-**target** should be an IP address for best performance, to avoid doing repetitive DNS queries on every check.
-**port** must be a valid TCP port between 1 and 65535.
-**asset** is a free text field that alows you to add a human readable label for the thing your checking. This is where you would put the host name or similar.
-**enabled** allows you to disable an entry without removing it from the list.
+- **target** should be an IP address for best performance, to avoid doing repetitive DNS queries on every check.
+- **port** must be a valid TCP port between 1 and 65535.
+- **asset** is a free text field that alows you to add a human readable label for the thing your checking. This is where you would put the host name or similar.
+- **enabled** allows you to disable an entry without removing it from the list.
