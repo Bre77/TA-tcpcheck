@@ -1,6 +1,5 @@
 import os
 import sys
-import json
 import csv
 import time
 import asyncio
