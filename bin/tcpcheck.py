@@ -2,8 +2,8 @@ import os
 import sys
 import csv
 import time
-import asyncio
 import socket
+import asyncio
 from contextlib import closing
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "lib"))
