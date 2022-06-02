@@ -98,8 +98,9 @@ class Input(Script):
             error = -2
             stop = time.perf_counter()
         
+        duration = (stop-start)*1000
         ew.write_event(Event(
-            data=f"{asset}|{error}|{stop-start}",
+            data=f"{asset}|{error}|{duration}",
             source=f"{address}:{port}",
         ))
 
