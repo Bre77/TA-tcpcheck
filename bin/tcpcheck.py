@@ -100,7 +100,7 @@ class Input(Script):
         
         duration = (stop-start)*1000
         ew.write_event(Event(
-            data=f"{asset}|{error}|{duration}",
+            data=f"{asset}|{error}|{duration:.3f}",
             source=f"{address}:{port}",
         ))
 
