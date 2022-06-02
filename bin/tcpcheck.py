@@ -86,16 +86,20 @@ class Input(Script):
         try:
             with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as sock:
                 sock.settimeout(timeout)
+                start = time.perf_counter()
                 error = sock.connect_ex((address, port))
+                stop = time.perf_counter()
         except OSError as e:
             ew.log(EventWriter.ERROR,f"TA-tcpcheck address=\"{address}:{port}\" asset=\"{asset}\" error=\"{e.__class__.__name__}\" message=\"{e}\"")
             error = -1
+            stop = time.perf_counter()
         except Exception as e:
             ew.log(EventWriter.ERROR,f"TA-tcpcheck address=\"{address}:{port}\" asset=\"{asset}\" error=\"{e.__class__.__name__}\" message=\"{e}\"")
             error = -2
+            stop = time.perf_counter()
         
         ew.write_event(Event(
-            data=f"{asset}|{error}",
+            data=f"{asset}|{error}|{stop-start}",
             source=f"{address}:{port}",
         ))
 
