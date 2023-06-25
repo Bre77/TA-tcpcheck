@@ -1,0 +1,6 @@
+{
+    "name": "TA-tcpcheck",
+    "version": "0.1.2",
+    "splunkbaseid": 6455,
+    "license": "https://cdn.splunkbase.splunk.com/static/misc/eula.html"
+}
