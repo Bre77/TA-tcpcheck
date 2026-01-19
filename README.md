@@ -16,7 +16,7 @@ Create an inputs.conf that includes:
 
 For example, the defaults are:
 ```
-file = default/targets.csv
+file = lookups/targets.csv
 concurrency = 50
 timeout = 2
 interval = 300
